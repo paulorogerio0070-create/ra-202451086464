@@ -38,14 +38,11 @@ Content-Type: application/json
 
 **Sua análise:**
 
-1. O que o cliente pediu (verbo + recurso)?
-  Requisição. GET
+1. O que o cliente pediu (verbo + recurso)? Resposta - Consulta. GET
 
-2. O que o status code informa? Deu certo? Culpa de quem se não deu?
-200. Deu certo
+2. O que o status code informa? Deu certo? Culpa de quem se não deu? Resposta - 200. Deu certo
 
-3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta?
-Não muda, pois esse método é somente de consulta e não altera dados no server
+3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta? Resposta - Não muda, pois esse método é somente de consulta e não altera dados no server
 
 ## REQUISIÇÃO 02 — O livro fantasma
 
@@ -66,11 +63,11 @@ Content-Type: application/problem+json
 
 **Sua análise:**
 
-1. O que o cliente pediu (verbo + recurso)?
+1. O que o cliente pediu (verbo + recurso)? Resposta - Consulta. GET
 
-2. O que o status code informa? Deu certo? Culpa de quem se não deu?
+2. O que o status code informa? Deu certo? Culpa de quem se não deu? Resposta - 404. Não deu certo, nesse caso não existe o livro com ID 99. A culpa é de quem requisitou
 
-3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta?
+3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta? Resposta - Não, pois trata-se de uma consulta e não altera o servidor
 
 ## REQUISIÇÃO 03 — Livro novo na estante
 
@@ -94,11 +91,11 @@ Content-Type: application/json
 
 **Sua análise:**
 
-1. O que o cliente pediu (verbo + recurso)?
+1. O que o cliente pediu (verbo + recurso)? Resposta - Cadastrar um novo livro. POST
 
-2. O que o status code informa? Deu certo? Culpa de quem se não deu?
+2. O que o status code informa? Deu certo? Culpa de quem se não deu? Resposta - 201. Deu certo, livro cadastrado
 
-3. Enviando este POST 3 vezes seguidas, o que acontece na estante? Para que serve o header Location?
+3. Enviando este POST 3 vezes seguidas, o que acontece na estante? Para que serve o header Location? Resposta - Se for enviado 3 vezes o servidor pode criar 3 livros iguais mas com ID diferentes. O header serve pra mostrar onde o livro foi cadastrado
 
 ## REQUISIÇÃO 04 — Corrigindo a ficha completa
 
