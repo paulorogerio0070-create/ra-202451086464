@@ -39,10 +39,13 @@ Content-Type: application/json
 **Sua análise:**
 
 1. O que o cliente pediu (verbo + recurso)?
+  Requisição. GET
 
 2. O que o status code informa? Deu certo? Culpa de quem se não deu?
+200. Deu certo
 
 3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta?
+Não muda, pois esse método é somente de consulta e não altera dados no server
 
 ## REQUISIÇÃO 02 — O livro fantasma
 
