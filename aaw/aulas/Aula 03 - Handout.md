@@ -59,7 +59,7 @@ No ENDPOINT não pode conter verbo, e a interrogação tem que ser substituida p
 2. Seu redesenho (método + rota + status codes):
 
 ```text
-DELETE /api/Aluno/7
+DELETE /api/Alunos/7
 Remove o aluno do banco de dados.
 Resposta: 200 OK + "OK" (somente se o aluno existir).
 Obs. da wiki: "dá pra deletar pelo navegador, bem prático".
