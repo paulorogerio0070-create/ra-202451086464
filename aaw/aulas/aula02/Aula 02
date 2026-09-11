@@ -110,7 +110,7 @@ Content-Type: application/json
 
 ```text
 ← RESPOSTA
-HTTP/1.1 200 OK
+HTTP/1.1 200 OK 
 Content-Type: application/json
 
 { "id": 7, "titulo": "O Programador Pragmático", "autor": "D. Hunt; D. Thomas" }
@@ -118,11 +118,11 @@ Content-Type: application/json
 
 **Sua análise:**
 
-1. O que o cliente pediu (verbo + recurso)?
+1. O que o cliente pediu \(verbo + recurso\)? Resposta - Atualizar completamente os dados do livro com ID 7. PUT
 
-2. O que o status code informa? Deu certo? Culpa de quem se não deu?
+2. O que o status code informa? Deu certo? Culpa de quem se não deu? Resposta - 200. Deu certo, o livro foi atualizado com sucesso
 
-3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta?
+3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta? Resposta - Na primeira vez o livro é atualizado, mas nas próximas vezes o estado não muda, pois os mesmos dados serão enviados novamente. O PUT é idempotente, então a resposta tende a continuar sendo 200 OK
 
 ## REQUISIÇÃO 05 — Fora do catálogo
 
@@ -139,11 +139,11 @@ HTTP/1.1 204 No Content
 
 **Sua análise:**
 
-1. O que o cliente pediu (verbo + recurso)?
+1. O que o cliente pediu \(verbo + recurso\)? Resposta - Excluir o livro com ID 7. DELETE
 
-2. O que o status code informa? Deu certo? Culpa de quem se não deu?
+2. O que o status code informa? Deu certo? Culpa de quem se não deu? Resposta - 204. Deu certo, o livro foi removido, mas o servidor não retornou conteúdo na resposta
 
-3. Repetindo o DELETE, o estado do servidor muda? Que resposta você ESPERA na segunda vez?
+3. Repetindo o DELETE, o estado do servidor muda? Que resposta você ESPERA na segunda vez? Resposta - O estado do servidor não muda depois da primeira exclusão, pois o livro já foi removido. Na segunda vez, eu espero uma resposta 404 Not Found, porque o livro com ID 7 não existe mais
 
 ## REQUISIÇÃO 06 — O cadastro capenga
 
@@ -167,24 +167,28 @@ Content-Type: application/problem+json
 
 **Sua análise:**
 
-1. O que o cliente pediu (verbo + recurso)?
+1. O que o cliente pediu \(verbo + recurso\)? Resposta - Cadastrar um novo livro. POST
 
-2. O que o status code informa? Deu certo? Culpa de quem se não deu?
+2. O que o status code informa? Deu certo? Culpa de quem se não deu? Resposta - 400. Não deu certo, porque a requisição está incompleta. O campo título é obrigatório e não foi enviado. A culpa é de quem fez a requisição, pois enviou os dados faltando informação
 
-3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta?
-
+3. Repetindo esta requisição 3 vezes seguidas, o estado do servidor muda? E a resposta? Resposta - Não muda, pois a requisição está com erro e nenhum livro será cadastrado. Se repetir 3 vezes sem corrigir o título, a resposta continuará sendo 400 Bad Request
 ## TABELA-SÍNTESE — Os verbos do HTTP
 
 *Preencham com base nos 6 cards. “Seguro” = não altera nada no servidor. “Idempotente” = repetir N vezes deixa o servidor no mesmo estado que 1 vez.*
 
-| **Verbo** | **Para que serve** | **Seguro?** | **Idempotente?** | **Status típicos** |
-| --- | --- | --- | --- | --- |
-| **`GET`** |  |  |  |  |
-| **`POST`** |  |  |  |  |
-| **`PUT`** |  |  |  |  |
-| **`PATCH`** |  |  |  |  |
-| **`DELETE`** |  |  |  |  |
+| ****Verbo****    | ****Para que serve****                                       | ****Seguro?**** | ****Idempotente?****         | ****Status típicos****                                     |
+| ---------------- | ------------------------------------------------------------ | --------------- | ---------------------------- | ---------------------------------------------------------- |
+| ****`GET`****    | **Consultar ou buscar dados de um recurso**                  | **Sim**         | **Sim**                      | **200 OK, 404 Not Found**                                  |
+| ****`POST`****   | **Criar um novo recurso ou enviar dados para processamento** | **Não**         | **Não**                      | **201 Created, 200 OK, 400 Bad Request**                   |
+| ****`PUT`****    | **Atualizar ou substituir completamente um recurso**         | **Não**         | **Sim**                      | **200 OK, 204 No Content, 400 Bad Request, 404 Not Found** |
+| ****`PATCH`****  | **Atualizar parcialmente um recurso**                        | **Não**         | **Depende da implementação** | **200 OK, 204 No Content, 400 Bad Request, 404 Not Found** |
+| ****`DELETE`**** | **Remover ou excluir um recurso**                            | **Não**         | **Sim**                      | **204 No Content, 200 OK, 404 Not Found**                  |
 
 ## DESAFIO
 
 1. O verbo PATCH não apareceu em nenhum card. Qual a diferença entre PATCH e PUT? Um app de banco quer alterar SÓ o apelido do usuário, entre dezenas de campos do perfil — qual dos dois você usaria e por quê?
+
+Resposta - A diferença é que o PUT é usado para atualizar o recurso completo, enquanto o PATCH é usado para atualizar apenas uma parte do recurso.
+
+No caso do app de banco, eu usaria PATCH, porque a alteração será apenas no apelido do usuário. Como existem vários campos no perfil, não faz sentido enviar todos os dados novamente usando PUT. O PATCH é mais adequado porque altera somente o campo necessário, reduzindo o risco de sobrescrever outras informações do usuário.
+
